@@ -1,9 +1,11 @@
-
-// use require('./assets/filename') for offline image
-// add image file to assets/images
-// use {uri: 'image url'} for hosted image
-// please use high quality image
-// you are free to add more than one social media or portfolio link
+/**
+ * Add your data in next index with same key but different values
+ * use require('./assets/filename') for offline image
+ * add image file to assets/images
+ * use {uri: 'image url'} for hosted image
+ * please use high quality image
+ * you are free to add more than one social media or portfolio link
+**/
 
 export const DATA = [
     {
