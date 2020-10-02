@@ -85,33 +85,16 @@ const Detail = ({ route, navigation }) => {
 					animation='fadeInUpBig'
 					duration={450}
 					delay={400}
-					style={{
-						marginTop: width * 1.5,
-						padding: 16,
-						borderTopLeftRadius: 16,
-						borderTopRightRadius: 16,
-						backgroundColor: colors.background_dark,
-						flex: 1
-					}}>
-					<Text style={{ color: colors.background_light, fontSize: 24, fontWeight: 'bold', lineHeight: 28 }}>
-						{data.name}
-					</Text>
-					<View style={{ alignItems: 'flex-start', marginTop: 14 }}>
-						<View
-							style={{
-								backgroundColor: colors.foreground_dark,
-								paddingHorizontal: 16,
-								paddingVertical: 4,
-								alignItems: 'center',
-								justifyContent: 'center',
-								borderRadius: 100
-							}}>
-							<Text style={{ color: colors.foreground_light }}>{data.techStack}</Text>
+					style={styles.bottomView}>
+					<Text style={styles.name}>{data.name}</Text>
+					<View style={styles.container}>
+						<View style={styles.techContainer}>
+							<Text style={styles.techText}>{data.techStack}</Text>
 						</View>
 					</View>
-					<View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 32, marginBottom: 6 }}>
-						<Text style={{ color: '#90c3da', fontSize: 14 }}>Let's Connect</Text>
-						<View style={{ height: 1, backgroundColor: '#90c3da', flex: 1, marginLeft: 8, marginTop: 2 }} />
+					<View style={styles.connectContainer}>
+						<Text style={styles.connectText}>Let's Connect</Text>
+						<View style={styles.lineHorizontal} />
 					</View>
 					{connectButton}
 				</Animatable.View>
@@ -149,5 +132,27 @@ const styles = StyleSheet.create({
 		...StyleSheet.absoluteFillObject,
 		flex: 1,
 		padding: 16
-	}
+	},
+	bottomView: {
+		marginTop: width * 1.5,
+		padding: 16,
+		borderTopLeftRadius: 16,
+		borderTopRightRadius: 16,
+		backgroundColor: colors.background_dark,
+		flex: 1
+	},
+	container: { alignItems: 'flex-start', marginTop: 14 },
+	techContainer: {
+		backgroundColor: colors.foreground_dark,
+		paddingHorizontal: 16,
+		paddingVertical: 4,
+		alignItems: 'center',
+		justifyContent: 'center',
+		borderRadius: 100
+	},
+	techText: { color: colors.foreground_light },
+	name: { color: colors.background_light, fontSize: 24, fontWeight: 'bold', lineHeight: 28 },
+	connectContainer: { flexDirection: 'row', alignItems: 'center', marginTop: 32, marginBottom: 6 },
+	connectText: { color: '#90c3da', fontSize: 14 },
+	lineHorizontal: { height: 1, backgroundColor: '#90c3da', flex: 1, marginLeft: 8, marginTop: 2 }
 })
