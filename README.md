@@ -2,8 +2,9 @@
 ---
 this repo perfect for your first pull request
 
-### How To
+## How To
 
+### Try or contribute
 - Fork this Repository using the button at the top
 - Clone your forked repository to your pc
 - Create a new branch for your modifications (ie. `git branch first-pr` and check it out `git checkout first-pr` and `git checkout -b first-pr`)
@@ -13,4 +14,4 @@ this repo perfect for your first pull request
 - Create a pull request
 - Star this repository
 - Wait for Pull Request to merge
-- Celebrate - you've done your first pull request! 
+- Celebrate - you've done your first pull request!

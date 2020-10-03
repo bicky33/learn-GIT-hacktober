@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import {
 	View,
 	Text,
@@ -8,15 +8,18 @@ import {
 	useWindowDimensions,
 	Animated,
 	Pressable,
-	Linking
+	Linking,
+	BackHandler
 } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { SharedElement } from 'react-navigation-shared-element'
 import { colors } from '../assets/colors/colors'
 import Icon from 'react-native-vector-icons/dist/Ionicons'
 import * as Animatable from 'react-native-animatable'
+import { ThemeContext } from '../contexts/ThemeContext'
 
 const Detail = ({ route, navigation }) => {
+	const { isDark } = useContext(ThemeContext)
 	const { data } = route.params
 	const scrollY = useRef(new Animated.Value(0)).current
 	const width = useWindowDimensions().width
@@ -28,13 +31,27 @@ const Detail = ({ route, navigation }) => {
 		<React.Fragment key={index}>
 			<ConnectButton
 				name={item.name}
+				isDark={isDark}
 				onPress={() =>
-					Linking.openURL(item.link).then((data) => {}).catch(() => {
+					Linking.openURL(item.link).then((_) => {}).catch(() => {
 						alert('Failed to open link')
 					})}
 			/>
 		</React.Fragment>
 	))
+
+	const backAction = () => {
+		Promise.all([ topRef.current.fadeOut(450), bottomView.current.fadeOutDownBig(450) ]).then(() =>
+			navigation.goBack()
+		)
+		return true
+	}
+
+	useEffect(() => {
+		BackHandler.addEventListener('hardwareBackPress', backAction)
+
+		return () => BackHandler.removeEventListener('hardwareBackPress', backAction)
+	}, [])
 
 	return (
 		<React.Fragment>
@@ -43,7 +60,7 @@ const Detail = ({ route, navigation }) => {
 				showsVerticalScrollIndicator={false}
 				style={{ flex: 1 }}
 				contentContainerStyle={{
-					backgroundColor: colors.background_dark
+					backgroundColor: isDark ? colors.background_dark : colors.background_light
 				}}
 				onScroll={Animated.event([ { nativeEvent: { contentOffset: { y: scrollY } } } ], {
 					useNativeDriver: true
@@ -68,12 +85,7 @@ const Detail = ({ route, navigation }) => {
 							end={{ x: 0, y: 0 }}
 							style={styles.linearGradient}>
 							<Pressable
-								onPress={() => {
-									Promise.all([
-										topRef.current.fadeOut(450),
-										bottomView.current.fadeOutDownBig(450)
-									]).then(() => navigation.goBack())
-								}}
+								onPress={() => backAction()}
 								hitSlop={{ top: 16, bottom: 16, right: 16, left: 16 }}>
 								<Icon name='arrow-back-outline' size={24} color={colors.background_light} />
 							</Pressable>
@@ -85,16 +97,16 @@ const Detail = ({ route, navigation }) => {
 					animation='fadeInUpBig'
 					duration={450}
 					delay={400}
-					style={styles.bottomView}>
-					<Text style={styles.name}>{data.name}</Text>
+					style={styles.bottomView(width, isDark)}>
+					<Text style={styles.name(isDark)}>{data.name}</Text>
 					<View style={styles.container}>
-						<View style={styles.techContainer}>
-							<Text style={styles.techText}>{data.techStack}</Text>
+						<View style={styles.techContainer(isDark)}>
+							<Text style={styles.techText(isDark)}>{data.techStack}</Text>
 						</View>
 					</View>
 					<View style={styles.connectContainer}>
-						<Text style={styles.connectText}>Let's Connect</Text>
-						<View style={styles.lineHorizontal} />
+						<Text style={styles.connectText(isDark)}>Let's Connect</Text>
+						<View style={styles.lineHorizontal(isDark)} />
 					</View>
 					{connectButton}
 				</Animatable.View>
@@ -103,26 +115,17 @@ const Detail = ({ route, navigation }) => {
 	)
 }
 
-Detail.sharedElements = (route, otherRoute, showing) => {
+Detail.sharedElements = (route) => {
 	const { data } = route.params
 	return [ `item.${data.id}.photo` ]
 }
 
 export default Detail
 
-const ConnectButton = ({ name, onPress }) => {
+const ConnectButton = ({ name, onPress, isDark }) => {
 	return (
-		<Pressable
-			onPress={onPress}
-			style={{
-				borderRadius: 8,
-				backgroundColor: colors.foreground_dark,
-				padding: 12,
-				alignItems: 'center',
-				justifyContent: 'center',
-				marginVertical: 12
-			}}>
-			<Text style={{ color: colors.foreground_light }}>{name}</Text>
+		<Pressable onPress={onPress} style={styles.buttonContainer(isDark)}>
+			<Text style={styles.buttonText(isDark)}>{name}</Text>
 		</Pressable>
 	)
 }
@@ -133,26 +136,47 @@ const styles = StyleSheet.create({
 		flex: 1,
 		padding: 16
 	},
-	bottomView: {
+	bottomView: (width, isDark) => ({
 		marginTop: width * 1.5,
 		padding: 16,
 		borderTopLeftRadius: 16,
 		borderTopRightRadius: 16,
-		backgroundColor: colors.background_dark,
+		backgroundColor: isDark ? colors.background_dark : colors.background_light,
 		flex: 1
-	},
+	}),
 	container: { alignItems: 'flex-start', marginTop: 14 },
-	techContainer: {
-		backgroundColor: colors.foreground_dark,
+	techContainer: (isDark) => ({
+		backgroundColor: isDark ? colors.foreground_dark : colors.foreground_light,
 		paddingHorizontal: 16,
 		paddingVertical: 4,
 		alignItems: 'center',
 		justifyContent: 'center',
 		borderRadius: 100
-	},
-	techText: { color: colors.foreground_light },
-	name: { color: colors.background_light, fontSize: 24, fontWeight: 'bold', lineHeight: 28 },
+	}),
+	techText: (isDark) => ({ color: isDark ? colors.foreground_light : colors.foreground_dark }),
+	name: (isDark) => ({
+		color: isDark ? colors.background_light : colors.background_dark,
+		fontSize: 24,
+		fontWeight: 'bold',
+		lineHeight: 28
+	}),
 	connectContainer: { flexDirection: 'row', alignItems: 'center', marginTop: 32, marginBottom: 6 },
-	connectText: { color: '#90c3da', fontSize: 14 },
-	lineHorizontal: { height: 1, backgroundColor: '#90c3da', flex: 1, marginLeft: 8, marginTop: 2 }
+	connectText: (isDark) => ({ color: isDark ? '#90c3da' : '#5a6a86', fontSize: 14 }),
+	lineHorizontal: (isDark) => ({
+		height: 1,
+		backgroundColor: isDark ? '#90c3da' : '#5a6a86',
+		flex: 1,
+		marginLeft: 8,
+		marginTop: 2
+	}),
+	buttonContainer: (isDark) => ({
+		borderRadius: 8,
+		backgroundColor: isDark ? colors.foreground_dark : colors.foreground_light,
+		padding: 12,
+		alignItems: 'center',
+		justifyContent: 'center',
+		marginVertical: 12,
+		elevation: isDark ? 0 : 1
+	}),
+	buttonText: (isDark) => ({ color: isDark ? colors.foreground_light : colors.foreground_dark })
 })

@@ -15,9 +15,17 @@ export const DATA = [
         techStack: 'React Native, React, Flutter',
         social: [
             {
-                name: 'github',
+                name: 'Github',
                 link: 'https://github.com/Drzaln'
-            }
+            },
+            {
+                name: 'LinkedIn',
+                link: 'https://www.linkedin.com/in/doddy-rizal-novianto-559269157/'
+            },
+            {
+                name: 'Instagram',
+                link: 'https://www.instagram.com/drzaln/'
+            },
         ]
-    }
+    },
 ]
