@@ -9,7 +9,7 @@
 
 export const DATA = [
     {
-        id: 1,
+        id: 1, //increment this value
         name: 'Doddy Rizal Novianto',
         image: require('./assets/images/doddy.jpg'),
         techStack: 'React Native, React, Flutter',
