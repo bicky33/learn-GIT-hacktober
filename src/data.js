@@ -28,4 +28,24 @@ export const DATA = [
             },
         ]
     },
+    {
+        id: 2, //increment this value
+        name: 'Hary Suryanto',
+        image: require('./assets/images/rocket.png'),
+        techStack: 'Flutter, CodeIgniter',
+        social: [
+            {
+                name: 'Github',
+                link: 'https://github.com/harysuryanto'
+            },
+            {
+                name: 'LinkedIn',
+                link: 'https://www.linkedin.com/in/harysuryanto'
+            },
+            {
+                name: 'Instagram',
+                link: 'https://www.instagram.com/harysuryanto_'
+            },
+        ]
+    },
 ]
