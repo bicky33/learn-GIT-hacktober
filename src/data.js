@@ -48,4 +48,24 @@ export const DATA = [
             },
         ]
     },
+     {
+        id: 3, //increment this value
+        name: 'Rohit W',
+        image: require('./assets/images/doddy.jpg'),
+        techStack: 'MongoDb, Angular, Nodejs, Express',
+        social: [
+            {
+                name: 'Github',
+                link: 'https://github.com/rohya8'
+            },
+            {
+                name: 'LinkedIn',
+                link: 'https://www.linkedin.com/in/rohit-wadke'
+            },
+            {
+                name: 'Instagram',
+                link: 'https://www.instagram.com/rohya8'
+            },
+        ]
+    },
 ]
