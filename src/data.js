@@ -51,7 +51,7 @@ export const DATA = [
      {
         id: 3, //increment this value
         name: 'Rohit W',
-        image: require('./assets/images/doddy.jpg'),
+        image: {uri: 'https://i.ytimg.com/vi/p759fOyk2cw/maxresdefault.jpg'},
         techStack: 'MongoDb, Angular, Nodejs, Express',
         social: [
             {
