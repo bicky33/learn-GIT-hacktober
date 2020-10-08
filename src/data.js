@@ -68,4 +68,17 @@ export const DATA = [
             },
         ]
     },
+    {
+        id: 4, //increment this value
+        name: 'Sarekashi',
+        image: require('./assets/images/sarekashi.jpg'),
+        techStack: 'Nodejs, CodeIgniter, Vim',
+        social: [
+            {
+                name: 'Github',
+                link: 'https://github.com/sarekashi'
+            }
+        ]
+    },
+
 ]
