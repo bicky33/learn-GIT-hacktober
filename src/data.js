@@ -79,6 +79,17 @@ export const DATA = [
                 link: 'https://github.com/sarekashi'
             }
         ]
+    },  {
+        id: 5, //increment this value
+        name: 'alvin',
+        image: require('./assets/images/sarekashi.jpg'),
+        techStack: 'Nodejs, React Native, React, Typesctipt, GIT',
+        social: [
+            {
+                name: 'Github',
+                link: 'https://github.com/alvinadet'
+            }
+        ]
     },
 
 ]
