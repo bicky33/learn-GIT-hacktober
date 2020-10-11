@@ -79,7 +79,8 @@ export const DATA = [
                 link: 'https://github.com/sarekashi'
             }
         ]
-    },  {
+    },  
+    {
         id: 5, //increment this value
         name: 'alvin',
         image: require('./assets/images/sarekashi.jpg'),
@@ -91,5 +92,18 @@ export const DATA = [
             }
         ]
     },
+    {
+        id: 5, //increment this value
+        name: 'Muhammad Biki Hamzah',
+        image: {uri: 'https://www.gematsu.com/wp-content/uploads/2020/03/Genshin-Impact_2020_03-31-20_Top.jpg'},
+        techStack: 'Nodejs, Javascript, Typescript, GIT',
+        social: [
+            {
+                name: 'Github',
+                link: 'https://github.com/alvinadet'
+            }
+        ]
+    },
+
 
 ]
